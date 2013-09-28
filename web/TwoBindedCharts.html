@@ -3,7 +3,8 @@
   <head>
     <title>Hello, data!</title>
     <!-- <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script> -->
-    <script type="text/javascript" src="d3.js"></script>
+    <!-- <script type="text/javascript" src="https://raw.github.com/mbostock/d3/master/d3.min.js"></script>-->
+    <script type="text/javascript" src="d3.min.js"></script>
 
 	<style type="text/css">
 	#table{
@@ -76,7 +77,7 @@ var xLim=[-2, 2];
 		.append('svg:circle')
 		.attr('cx', function(d) { return scales.y(d.y);})
 		.attr('cy', function(d) { return scales.x(d.x);})
-		.attr('r',4)
+		.attr('r', 4)
         .on("mouseover", function(d, i) {
             d3.select(this).attr(selectedAttrs);
             // and the opposite chart's one
