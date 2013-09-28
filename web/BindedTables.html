@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Dynamically highlighting of binded tables with jQuery</title>
+    <script type="text/javascript" src="jquery.js"></script>
+
+	<style type="text/css">
+	#table{
+	    display:table;
+	}
+	#cell>div{
+	    display:table-cell
+	}
+	#leftChart{
+	    width:200px;
+	    border-style:solid;
+	    border-width:1px;}
+	#rightChart{
+        width:200px;
+        border-style:solid;
+        border-width:1px;}
+
+    .dataframe table {
+        border: 1px solid #000000;
+        border-collapse: collapse;
+        margin: 1em 2em;
+    }
+    .dataframe td {
+        border: 1px solid #000000;
+        padding: 4px;
+        text-align: left;
+        vertical-align: middle;
+    }
+    .dataframe th {
+        border: 1px solid #000000;
+        font-weight: bold;
+        padding: 4px;
+        text-align: left;
+        vertical-align: middle;
+    }
+    .dataframe tr {
+        border: 1px solid #000000;
+    }
+    .dataframe p + p {
+        margin-top: 1em;
+    }
+
+    .highlighted_row{ background-color:#FFF000; font-weight:bold; }
+    .normal_row{ background-color:#FFFFFF; font-weight:normal; }
+    
+	</style>
+	    
+  </head>
+
+  <body>
+
+  <div id="cell" class="dataframe">
+    <div id="left"> <table class="df" border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>correlation</th>
+      <th>p_value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td> 0.5</td>
+      <td> 0.10</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td> 0.1</td>
+      <td> 0.80</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td> 0.9</td>
+      <td> 0.01</td>
+    </tr>
+  </tbody>
+</table> </div>
+    <div id="right"> <table class="dataframe another_df" border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td> A</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td> B</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td> C</td>
+    </tr>
+  </tbody>
+</table> </div>
+  </div>
+  
+    <script>
+    
+        function enter_row() {
+            $(this).addClass("highlighted_row");            
+            var rowIndex = $( "#left tr" ).index( this );            
+            var rightRowElement = $("#right tr").get(rowIndex);
+            $(rightRowElement).addClass("highlighted_row");
+
+            console.log("entering row " + rowIndex);
+
+            //var cell = rightRowElement.cells[1]
+            //console.log(cell);
+            //console.log($(cell));            
+            //$(cell).text('jQuery was here');
+        }
+        function leave_row() {
+            $(this).removeClass("highlighted_row");
+            
+
+            var rowIndex = $( "#left tr" ).index( this );            
+            var rightRowElement = $("#right tr").get(rowIndex);
+            $(rightRowElement).removeClass("highlighted_row");
+
+            console.log("leaving row " + rowIndex);
+        }
+        
+        $("#left tr").not(':first').hover(enter_row, leave_row);
+
+    </script>
+</body>
+</html>
