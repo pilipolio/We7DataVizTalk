@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, data!</title>
+    <script type="text/javascript" src="d3.js"></script>
+  </head>
+  <body>
+
+    <div id="chart"></div>
+    <script type="text/javascript">
+	var width=300;
+	var height=150;
+	var data = [{'x':1, 'y':1}, {'x':2, 'y':2}];
+	var xLim = [0,3];
+	var yLim = [0,3];
+
+	function pointToString(p) { return "x=" + p.x.toFixed(0) + ", y = " + p.y.toFixed(0); }
+
+	var g = d3.select('#chart')
+		      .append('svg').attr('width', width).attr('height', height);
+
+	scales = {
+		x : d3.scale.linear()
+		  .domain(xLim)
+		  .range([0,width]),
+		y : d3.scale.linear()
+		  	.domain(yLim)
+			.range([height,0])
+	};
+
+	g.selectAll('.point').data(data).enter()
+		.append('svg:circle')
+		.attr('cx',function(d) { return scales.x(d.x);})
+		.attr('cy',function(d) { return scales.y(d.y);})
+		.attr('r',4)
+		.append("svg:title")
+		.text(pointToString);
+
+	console.log(yLim);
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bar chart</title>
+    <script type="text/javascript" src="d3.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+    
+    var w = 500;
+    var h = 100;
+    var barPadding = 1;
+    
+    var dataset = [ 20, 30 ]
+    
+    //Create SVG element
+    var svg = d3.select("body")
+                .append("svg")
+                .attr("width", w)
+                .attr("height", h);
+
+svg.selectAll("rect")
+	.data(dataset)
+	.enter()
+	.append("rect")
+	.attr("x", function(d, i) {
+	    return i * 100
+	})
+	.attr("y", function(d) {
+	    return 0
+	})
+	.attr("width", 50)
+	.attr("height", function(d) {
+	    return d
+	})
+	.style("fill", "teal")
+	
+    </script>
+    </body>
+</html>
+

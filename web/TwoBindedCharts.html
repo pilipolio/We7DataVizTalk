@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, data!</title>
+    <!-- <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script> -->
+    <script type="text/javascript" src="d3.js"></script>
+
+	<style type="text/css">
+	#table{
+	    display:table;
+	}
+	#cell>div{
+	    display:table-cell
+	}
+	#leftChart{
+	    width:200px;
+	    border-style:solid;
+	    border-width:1px;}
+	#rightChart{
+        width:200px;
+        border-style:solid;
+        border-width:1px;}
+	</style>
+  </head>
+<body>
+    <div id="table">
+      <div id="cell">
+        <div id="leftChart">
+        </div>
+        <div id="rightChart">
+        </div>
+      </div>
+    </div>
+    <script>
+    var height=300;
+    var width=300;
+var data=[{"y": -0.15697807427172411, "x": 0.12164282704562671}, {"y": 0.99745373915847035, "x": -0.77969894017481955}, {"y": -0.77259154219118831, "x": 0.42264547885948328}, {"y": -0.42223319605323562, "x": -0.26562863720025942}, {"y": -0.96401074102698459, "x": -0.26471185046474532}, {"y": 0.24924105600033131, "x": -0.0009347723022336687}, {"y": 0.14433305099458205, "x": -0.34303576376082634}, {"y": -0.047682781394327814, "x": -0.77363479841784055}, {"y": -0.52172923713843011, "x": -0.28927494753459754}, {"y": -0.21041038959104083, "x": -0.032874961918045266}, {"y": -0.15474203009309973, "x": -0.0014334317414995724}, {"y": 0.1206936897590104, "x": 0.52149297179394638}, {"y": -0.054620214561714571, "x": -0.41057434244312813}, {"y": -0.32728081441326484, "x": 0.67667388258081651}, {"y": 0.41096079378340017, "x": 0.14302853745624228}, {"y": -0.12287470668992553, "x": -0.27116793081344642}, {"y": -0.31480955619678092, "x": 0.33200140653288562}, {"y": 0.28145818555797608, "x": -1.0022247254067849}, {"y": -1.0162421678132403, "x": 0.20904708067585079}, {"y": 0.45092058515688999, "x": 0.39263077049015011}, {"y": -0.0019249730338362892, "x": -0.46227713956611682}, {"y": 0.34398284196133966, "x": 0.32095709837517428}, {"y": -0.28555445829717646, "x": 0.1115419553323858}, {"y": 0.27756847970659226, "x": 0.34621160090761605}, {"y": -0.47986285259377326, "x": -0.2593595361331798}, {"y": -0.42157714230348231, "x": 0.19390801398272017}, {"y": 0.23330952716816439, "x": 0.13248544877548749}, {"y": -0.13669237073673535, "x": -0.095755951259929334}, {"y": -0.9295395969242578, "x": -0.49783524102974297}, {"y": 0.2603466276000676, "x": 0.11714074380163578}, {"y": 0.18028917484625101, "x": 0.50863239320357168}, {"y": -0.21533644281983383, "x": -0.39404603801229399}, {"y": -0.041836603561315702, "x": -0.7412950061330098}, {"y": -0.03628260241827972, "x": 0.20495280552526898}, {"y": 0.32414220862193527, "x": -0.092343781362707503}, {"y": -0.11819267087075061, "x": -0.43661015964080929}, {"y": 0.182041019275206, "x": 0.68778986227288164}, {"y": 0.50309143341236306, "x": -0.31118263427441695}, {"y": 0.7097291101616825, "x": -0.41756128803776738}, {"y": 1.1682419008429012, "x": -0.41209402740578521}, {"y": 0.1612529349339189, "x": -0.55920045814296293}, {"y": 0.74835575388529529, "x": 0.58301284187108926}, {"y": 0.23391709123753135, "x": -0.85973387939976265}, {"y": 0.40057424230035238, "x": -0.4514935933000333}, {"y": -0.14731358296440583, "x": 0.6635645470935867}, {"y": 0.63552111222761987, "x": 0.43065942925868222}, {"y": 0.80465426350395863, "x": 1.0284462475770646}, {"y": 0.64574339440863548, "x": -1.0247034785693594}, {"y": 0.035799969219418706, "x": 0.43736337387154611}, {"y": 0.32588094109886312, "x": -0.31568395776324643}];
+var yLim=[-3, 3];
+var xLim=[-2, 2];
+
+	function pointToString(p) { return "x=" + p.x.toFixed(1) + ", y = " + p.y.toFixed(1); }
+
+	scales = {
+		x : d3.scale.linear()
+		  .domain(xLim)
+		  .range([0,width]),
+		y : d3.scale.linear()
+		  	.domain(yLim)
+			.range([height,0])
+	};
+
+	var leftChart = d3.select('#leftChart')
+		      .append('svg').attr('width', width).attr('height', height);
+
+    selectedAttrs = { fill: "blue" }
+    unselectedAttrs = { fill: "black" }
+    
+	leftChart.selectAll('.point').data(data).enter()
+		.append('svg:circle')
+		.attr('cx', function(d) { return scales.x(d.x);})
+		.attr('cy', function(d) { return scales.y(d.y);})
+		.attr('r',4)
+        .on("mouseover", function(d, i) {
+            d3.select(this).attr(selectedAttrs);
+            fillElementsAtIndex(rightChart, 'circle',  i, selectedAttrs);
+            })
+        .on("mouseout", function(d, i) {
+            d3.select(this).attr(unselectedAttrs) 
+            fillElementsAtIndex(rightChart, 'circle',  i, unselectedAttrs);
+            })
+        
+	var rightChart = d3.select('#rightChart')
+		      .append('svg').attr('width', width).attr('height', height);
+
+	rightChart.selectAll('.point').data(data).enter()
+		.append('svg:circle')
+		.attr('cx', function(d) { return scales.y(d.y);})
+		.attr('cy', function(d) { return scales.x(d.x);})
+		.attr('r',4)
+        .on("mouseover", function(d, i) {
+            d3.select(this).attr(selectedAttrs);
+            // and the opposite chart's one
+            fillElementsAtIndex(leftChart, 'circle',  i, selectedAttrs);
+            })
+        .on("mouseout", function(d, i) {
+            d3.select(this).attr(unselectedAttrs) 
+            fillElementsAtIndex(leftChart, 'circle',  i, unselectedAttrs);
+            })
+
+    function fillElementsAtIndex(chart, elementName, elementIndex, attributes) {
+        // quite verbose...
+        d3.select(chart.selectAll(elementName)[0][elementIndex]).attr(attributes)
+    }
+    </script>
+</body>
+
+</html>
+
