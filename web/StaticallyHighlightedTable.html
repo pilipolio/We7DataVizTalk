@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Statically highlighted table with jQuery</title>
+    <script type="text/javascript" src="jquery.js"></script>
+    
+    <style type="text/css">
+        .cell_bg_highlight{ background-color:#FFF000; font-size:120%; }
+    </style>
+  </head>
+  <body>
+
+    <div id="FHGFHG">
+    <table border="1" class="dataframe my_table">
+      <thead>
+        <tr style="text-align: right;">
+          <th></th>
+          <th>correlation</th>
+          <th>p_value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>0</th>
+          <td> 0.5</td>
+          <td> 0.10</td>
+        </tr>
+        <tr>
+          <th>1</th>
+          <td> 0.1</td>
+          <td> 0.80</td>
+        </tr>
+        <tr>
+          <th>2</th>
+          <td> 0.9</td>
+          <td> 0.01</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    
+    <script>
+    var rowIndexes=[1, 2];
+    $('.my_table tbody tr')
+        .filter(function(index) { return $.inArray(index, rowIndexes);})
+        .addClass('cell_bg_highlight');
+    </script>
+  </body>
+</html>
