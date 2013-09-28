@@ -14,20 +14,33 @@
 
 	var chart = d3.select('#chart')
 		      .append('svg').attr('width', width).attr('height', height);
-
-    var circle = chart.append("svg:circle")
-         .attr("r", 50)
-         .attr("cx", 150)
-         .attr("cy", 150)
-         .style("stroke", "black")
-         .style("fill", "black");
     
-    circle.on("click", function() {
-        d3.select(this).transition()
-                       .attr("r", 100)
-                       .style("fill", "blue")
-                       .ease("linear")
-                       .duration(1000) 
+    chart.on("mousedown", function() {
+        var mouseXY = d3.mouse(this)
+        var circle = chart.append("svg:circle")
+             .attr("r", 5)
+             .attr("cx", mouseXY[0])
+             .attr("cy", mouseXY[1])
+             .style("stroke", "black")
+             .style("fill", "gray");
+
+        circle.transition()
+              .attr("r", 300)
+              .style("fill", "blue")
+              .ease("quad")
+              .duration(3000) 
+        })
+
+    chart.on("mouseup", function() {
+        console.log("mouseup")
+        
+        //var circle = chart.select("circle")
+        //lastAddedCircle
+        var circle = d3.select( d3.selectAll("circle")[0].pop() );
+        circle.transition()
+              .style("opacity",0)
+              .duration(2000)
+              .each("end",function() {circle.remove() })               
         })
   </script>
   </body>
