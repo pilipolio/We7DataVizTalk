@@ -1,7 +1,7 @@
 from IPython.display import display, HTML, Javascript
 
 class HtmlScript(object):
-    def __init__(self, div_id, js_lib=""):
+    def __init__(self, div_id, js_lib=None):
         self.div_id = div_id
         self.js_lib = js_lib
         self.css_list = []
@@ -49,6 +49,6 @@ class HtmlScript(object):
     
     def to_string(self):
         return '<script>\n' + self.get_js() + '</script>'
-    
+
     def display(self):
         display(HTML(self.get_html_only()), Javascript(self.get_js(), lib=self.js_lib))
