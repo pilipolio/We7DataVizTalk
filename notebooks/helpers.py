@@ -1,4 +1,5 @@
 from IPython.display import display, HTML, Javascript
+import json
 
 class HtmlScript(object):
     def __init__(self, div_id, js_lib=None):
@@ -12,19 +13,9 @@ class HtmlScript(object):
     def update_vars(self, **kw):
         # could do some (recursive) checking for keys and values here (as used to do convertVar)
         self.vars.update(**kw)
-
-    def convert_value(self, value):
-        value_type = type(value)
-        if value_type == str:
-            return '"%s"' % value
-        elif value_type in (list, dict, int, float) or value == None:
-            return str(value)
-        else:
-            print typeOut
-            raise TypeError
     
     def get_js_vars_lines(self):
-        return ["var {0}={1};".format(k,self.convert_value(v)).replace("u'", "'") 
+        return ["var {0}={1};".format(k, json.dumps(v)).replace("u'", "'") 
                 for k,v in self.vars.iteritems()]
 
     def add_js(self, jsStr):
