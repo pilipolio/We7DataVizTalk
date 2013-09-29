@@ -3,19 +3,21 @@
   <head>
     <title>Iris chart</title>
     <script type="text/javascript" src="d3.js"></script>
+    <script type="text/javascript" src="jquery.js"></script>
+    
   </head>
   <style>
   .axis path,
-.axis line {
+  .axis line {
     fill: none;
     stroke: black;
     shape-rendering: crispEdges;
-}
+  }
 
-.axis text {
+  .axis text {
     font-family: sans-serif;
     font-size: 11px;
-}
+  }
   </style>
 
   <body>
@@ -24,54 +26,112 @@
     
     <script>
     var speciesToColor={"setosa": "red", "versicolor": "green", "virginica": "blue"};
-    var data=[{"sepalLength": 5.1, "petalWidth": 0.2, "sepalWidth": 3.5, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 4.9, "petalWidth": 0.2, "sepalWidth": 3, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 4.7, "petalWidth": 0.2, "sepalWidth": 3.2, "petalLength": 1.3, "species": "setosa"}, {"sepalLength": 4.6, "petalWidth": 0.2, "sepalWidth": 3.1, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 5, "petalWidth": 0.2, "sepalWidth": 3.6, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 5.4, "petalWidth": 0.4, "sepalWidth": 3.9, "petalLength": 1.7, "species": "setosa"}, {"sepalLength": 4.6, "petalWidth": 0.3, "sepalWidth": 3.4, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 5, "petalWidth": 0.2, "sepalWidth": 3.4, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 4.4, "petalWidth": 0.2, "sepalWidth": 2.9, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 4.9, "petalWidth": 0.1, "sepalWidth": 3.1, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 5.4, "petalWidth": 0.2, "sepalWidth": 3.7, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 4.8, "petalWidth": 0.2, "sepalWidth": 3.4, "petalLength": 1.6, "species": "setosa"}, {"sepalLength": 4.8, "petalWidth": 0.1, "sepalWidth": 3, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 4.3, "petalWidth": 0.1, "sepalWidth": 3, "petalLength": 1.1, "species": "setosa"}, {"sepalLength": 5.8, "petalWidth": 0.2, "sepalWidth": 4, "petalLength": 1.2, "species": "setosa"}, {"sepalLength": 5.7, "petalWidth": 0.4, "sepalWidth": 4.4, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 5.4, "petalWidth": 0.4, "sepalWidth": 3.9, "petalLength": 1.3, "species": "setosa"}, {"sepalLength": 5.1, "petalWidth": 0.3, "sepalWidth": 3.5, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 5.7, "petalWidth": 0.3, "sepalWidth": 3.8, "petalLength": 1.7, "species": "setosa"}, {"sepalLength": 5.1, "petalWidth": 0.3, "sepalWidth": 3.8, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 5.4, "petalWidth": 0.2, "sepalWidth": 3.4, "petalLength": 1.7, "species": "setosa"}, {"sepalLength": 5.1, "petalWidth": 0.4, "sepalWidth": 3.7, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 4.6, "petalWidth": 0.2, "sepalWidth": 3.6, "petalLength": 1, "species": "setosa"}, {"sepalLength": 5.1, "petalWidth": 0.5, "sepalWidth": 3.3, "petalLength": 1.7, "species": "setosa"}, {"sepalLength": 4.8, "petalWidth": 0.2, "sepalWidth": 3.4, "petalLength": 1.9, "species": "setosa"}, {"sepalLength": 5, "petalWidth": 0.2, "sepalWidth": 3, "petalLength": 1.6, "species": "setosa"}, {"sepalLength": 5, "petalWidth": 0.4, "sepalWidth": 3.4, "petalLength": 1.6, "species": "setosa"}, {"sepalLength": 5.2, "petalWidth": 0.2, "sepalWidth": 3.5, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 5.2, "petalWidth": 0.2, "sepalWidth": 3.4, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 4.7, "petalWidth": 0.2, "sepalWidth": 3.2, "petalLength": 1.6, "species": "setosa"}, {"sepalLength": 4.8, "petalWidth": 0.2, "sepalWidth": 3.1, "petalLength": 1.6, "species": "setosa"}];
-    var width=300;
-    var margin = 40;
-    var height=300;
+var data=[{"sepalLength": 5.1, "petalWidth": 0.2, "sepalWidth": 3.5, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 4.9, "petalWidth": 0.2, "sepalWidth": 3, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 4.7, "petalWidth": 0.2, "sepalWidth": 3.2, "petalLength": 1.3, "species": "setosa"}, {"sepalLength": 4.6, "petalWidth": 0.2, "sepalWidth": 3.1, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 5, "petalWidth": 0.2, "sepalWidth": 3.6, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 5.4, "petalWidth": 0.4, "sepalWidth": 3.9, "petalLength": 1.7, "species": "setosa"}, {"sepalLength": 4.6, "petalWidth": 0.3, "sepalWidth": 3.4, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 5, "petalWidth": 0.2, "sepalWidth": 3.4, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 4.4, "petalWidth": 0.2, "sepalWidth": 2.9, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 4.9, "petalWidth": 0.1, "sepalWidth": 3.1, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 5.4, "petalWidth": 0.2, "sepalWidth": 3.7, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 4.8, "petalWidth": 0.2, "sepalWidth": 3.4, "petalLength": 1.6, "species": "setosa"}, {"sepalLength": 4.8, "petalWidth": 0.1, "sepalWidth": 3, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 4.3, "petalWidth": 0.1, "sepalWidth": 3, "petalLength": 1.1, "species": "setosa"}, {"sepalLength": 5.8, "petalWidth": 0.2, "sepalWidth": 4, "petalLength": 1.2, "species": "setosa"}, {"sepalLength": 5.7, "petalWidth": 0.4, "sepalWidth": 4.4, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 5.4, "petalWidth": 0.4, "sepalWidth": 3.9, "petalLength": 1.3, "species": "setosa"}, {"sepalLength": 5.1, "petalWidth": 0.3, "sepalWidth": 3.5, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 5.7, "petalWidth": 0.3, "sepalWidth": 3.8, "petalLength": 1.7, "species": "setosa"}, {"sepalLength": 5.1, "petalWidth": 0.3, "sepalWidth": 3.8, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 5.4, "petalWidth": 0.2, "sepalWidth": 3.4, "petalLength": 1.7, "species": "setosa"}, {"sepalLength": 5.1, "petalWidth": 0.4, "sepalWidth": 3.7, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 4.6, "petalWidth": 0.2, "sepalWidth": 3.6, "petalLength": 1, "species": "setosa"}, {"sepalLength": 5.1, "petalWidth": 0.5, "sepalWidth": 3.3, "petalLength": 1.7, "species": "setosa"}, {"sepalLength": 4.8, "petalWidth": 0.2, "sepalWidth": 3.4, "petalLength": 1.9, "species": "setosa"}, {"sepalLength": 5, "petalWidth": 0.2, "sepalWidth": 3, "petalLength": 1.6, "species": "setosa"}, {"sepalLength": 5, "petalWidth": 0.4, "sepalWidth": 3.4, "petalLength": 1.6, "species": "setosa"}, {"sepalLength": 5.2, "petalWidth": 0.2, "sepalWidth": 3.5, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 5.2, "petalWidth": 0.2, "sepalWidth": 3.4, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 4.7, "petalWidth": 0.2, "sepalWidth": 3.2, "petalLength": 1.6, "species": "setosa"}, {"sepalLength": 4.8, "petalWidth": 0.2, "sepalWidth": 3.1, "petalLength": 1.6, "species": "setosa"}, {"sepalLength": 5.4, "petalWidth": 0.4, "sepalWidth": 3.4, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 5.2, "petalWidth": 0.1, "sepalWidth": 4.1, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 5.5, "petalWidth": 0.2, "sepalWidth": 4.2, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 4.9, "petalWidth": 0.1, "sepalWidth": 3.1, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 5, "petalWidth": 0.2, "sepalWidth": 3.2, "petalLength": 1.2, "species": "setosa"}, {"sepalLength": 5.5, "petalWidth": 0.2, "sepalWidth": 3.5, "petalLength": 1.3, "species": "setosa"}, {"sepalLength": 4.9, "petalWidth": 0.1, "sepalWidth": 3.1, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 4.4, "petalWidth": 0.2, "sepalWidth": 3, "petalLength": 1.3, "species": "setosa"}, {"sepalLength": 5.1, "petalWidth": 0.2, "sepalWidth": 3.4, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 5, "petalWidth": 0.3, "sepalWidth": 3.5, "petalLength": 1.3, "species": "setosa"}, {"sepalLength": 4.5, "petalWidth": 0.3, "sepalWidth": 2.3, "petalLength": 1.3, "species": "setosa"}, {"sepalLength": 4.4, "petalWidth": 0.2, "sepalWidth": 3.2, "petalLength": 1.3, "species": "setosa"}, {"sepalLength": 5, "petalWidth": 0.6, "sepalWidth": 3.5, "petalLength": 1.6, "species": "setosa"}, {"sepalLength": 5.1, "petalWidth": 0.4, "sepalWidth": 3.8, "petalLength": 1.9, "species": "setosa"}, {"sepalLength": 4.8, "petalWidth": 0.3, "sepalWidth": 3, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 5.1, "petalWidth": 0.2, "sepalWidth": 3.8, "petalLength": 1.6, "species": "setosa"}, {"sepalLength": 4.6, "petalWidth": 0.2, "sepalWidth": 3.2, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 5.3, "petalWidth": 0.2, "sepalWidth": 3.7, "petalLength": 1.5, "species": "setosa"}, {"sepalLength": 5, "petalWidth": 0.2, "sepalWidth": 3.3, "petalLength": 1.4, "species": "setosa"}, {"sepalLength": 7, "petalWidth": 1.4, "sepalWidth": 3.2, "petalLength": 4.7, "species": "versicolor"}, {"sepalLength": 6.4, "petalWidth": 1.5, "sepalWidth": 3.2, "petalLength": 4.5, "species": "versicolor"}, {"sepalLength": 6.9, "petalWidth": 1.5, "sepalWidth": 3.1, "petalLength": 4.9, "species": "versicolor"}, {"sepalLength": 5.5, "petalWidth": 1.3, "sepalWidth": 2.3, "petalLength": 4, "species": "versicolor"}, {"sepalLength": 6.5, "petalWidth": 1.5, "sepalWidth": 2.8, "petalLength": 4.6, "species": "versicolor"}, {"sepalLength": 5.7, "petalWidth": 1.3, "sepalWidth": 2.8, "petalLength": 4.5, "species": "versicolor"}, {"sepalLength": 6.3, "petalWidth": 1.6, "sepalWidth": 3.3, "petalLength": 4.7, "species": "versicolor"}, {"sepalLength": 4.9, "petalWidth": 1, "sepalWidth": 2.4, "petalLength": 3.3, "species": "versicolor"}, {"sepalLength": 6.6, "petalWidth": 1.3, "sepalWidth": 2.9, "petalLength": 4.6, "species": "versicolor"}, {"sepalLength": 5.2, "petalWidth": 1.4, "sepalWidth": 2.7, "petalLength": 3.9, "species": "versicolor"}, {"sepalLength": 5, "petalWidth": 1, "sepalWidth": 2, "petalLength": 3.5, "species": "versicolor"}, {"sepalLength": 5.9, "petalWidth": 1.5, "sepalWidth": 3, "petalLength": 4.2, "species": "versicolor"}, {"sepalLength": 6, "petalWidth": 1, "sepalWidth": 2.2, "petalLength": 4, "species": "versicolor"}, {"sepalLength": 6.1, "petalWidth": 1.4, "sepalWidth": 2.9, "petalLength": 4.7, "species": "versicolor"}, {"sepalLength": 5.6, "petalWidth": 1.3, "sepalWidth": 2.9, "petalLength": 3.6, "species": "versicolor"}, {"sepalLength": 6.7, "petalWidth": 1.4, "sepalWidth": 3.1, "petalLength": 4.4, "species": "versicolor"}, {"sepalLength": 5.6, "petalWidth": 1.5, "sepalWidth": 3, "petalLength": 4.5, "species": "versicolor"}, {"sepalLength": 5.8, "petalWidth": 1, "sepalWidth": 2.7, "petalLength": 4.1, "species": "versicolor"}, {"sepalLength": 6.2, "petalWidth": 1.5, "sepalWidth": 2.2, "petalLength": 4.5, "species": "versicolor"}, {"sepalLength": 5.6, "petalWidth": 1.1, "sepalWidth": 2.5, "petalLength": 3.9, "species": "versicolor"}, {"sepalLength": 5.9, "petalWidth": 1.8, "sepalWidth": 3.2, "petalLength": 4.8, "species": "versicolor"}, {"sepalLength": 6.1, "petalWidth": 1.3, "sepalWidth": 2.8, "petalLength": 4, "species": "versicolor"}, {"sepalLength": 6.3, "petalWidth": 1.5, "sepalWidth": 2.5, "petalLength": 4.9, "species": "versicolor"}, {"sepalLength": 6.1, "petalWidth": 1.2, "sepalWidth": 2.8, "petalLength": 4.7, "species": "versicolor"}, {"sepalLength": 6.4, "petalWidth": 1.3, "sepalWidth": 2.9, "petalLength": 4.3, "species": "versicolor"}, {"sepalLength": 6.6, "petalWidth": 1.4, "sepalWidth": 3, "petalLength": 4.4, "species": "versicolor"}, {"sepalLength": 6.8, "petalWidth": 1.4, "sepalWidth": 2.8, "petalLength": 4.8, "species": "versicolor"}, {"sepalLength": 6.7, "petalWidth": 1.7, "sepalWidth": 3, "petalLength": 5, "species": "versicolor"}, {"sepalLength": 6, "petalWidth": 1.5, "sepalWidth": 2.9, "petalLength": 4.5, "species": "versicolor"}, {"sepalLength": 5.7, "petalWidth": 1, "sepalWidth": 2.6, "petalLength": 3.5, "species": "versicolor"}, {"sepalLength": 5.5, "petalWidth": 1.1, "sepalWidth": 2.4, "petalLength": 3.8, "species": "versicolor"}, {"sepalLength": 5.5, "petalWidth": 1, "sepalWidth": 2.4, "petalLength": 3.7, "species": "versicolor"}, {"sepalLength": 5.8, "petalWidth": 1.2, "sepalWidth": 2.7, "petalLength": 3.9, "species": "versicolor"}, {"sepalLength": 6, "petalWidth": 1.6, "sepalWidth": 2.7, "petalLength": 5.1, "species": "versicolor"}, {"sepalLength": 5.4, "petalWidth": 1.5, "sepalWidth": 3, "petalLength": 4.5, "species": "versicolor"}, {"sepalLength": 6, "petalWidth": 1.6, "sepalWidth": 3.4, "petalLength": 4.5, "species": "versicolor"}, {"sepalLength": 6.7, "petalWidth": 1.5, "sepalWidth": 3.1, "petalLength": 4.7, "species": "versicolor"}, {"sepalLength": 6.3, "petalWidth": 1.3, "sepalWidth": 2.3, "petalLength": 4.4, "species": "versicolor"}, {"sepalLength": 5.6, "petalWidth": 1.3, "sepalWidth": 3, "petalLength": 4.1, "species": "versicolor"}, {"sepalLength": 5.5, "petalWidth": 1.3, "sepalWidth": 2.5, "petalLength": 4, "species": "versicolor"}, {"sepalLength": 5.5, "petalWidth": 1.2, "sepalWidth": 2.6, "petalLength": 4.4, "species": "versicolor"}, {"sepalLength": 6.1, "petalWidth": 1.4, "sepalWidth": 3, "petalLength": 4.6, "species": "versicolor"}, {"sepalLength": 5.8, "petalWidth": 1.2, "sepalWidth": 2.6, "petalLength": 4, "species": "versicolor"}, {"sepalLength": 5, "petalWidth": 1, "sepalWidth": 2.3, "petalLength": 3.3, "species": "versicolor"}, {"sepalLength": 5.6, "petalWidth": 1.3, "sepalWidth": 2.7, "petalLength": 4.2, "species": "versicolor"}, {"sepalLength": 5.7, "petalWidth": 1.2, "sepalWidth": 3, "petalLength": 4.2, "species": "versicolor"}, {"sepalLength": 5.7, "petalWidth": 1.3, "sepalWidth": 2.9, "petalLength": 4.2, "species": "versicolor"}, {"sepalLength": 6.2, "petalWidth": 1.3, "sepalWidth": 2.9, "petalLength": 4.3, "species": "versicolor"}, {"sepalLength": 5.1, "petalWidth": 1.1, "sepalWidth": 2.5, "petalLength": 3, "species": "versicolor"}, {"sepalLength": 5.7, "petalWidth": 1.3, "sepalWidth": 2.8, "petalLength": 4.1, "species": "versicolor"}, {"sepalLength": 6.3, "petalWidth": 2.5, "sepalWidth": 3.3, "petalLength": 6, "species": "virginica"}, {"sepalLength": 5.8, "petalWidth": 1.9, "sepalWidth": 2.7, "petalLength": 5.1, "species": "virginica"}, {"sepalLength": 7.1, "petalWidth": 2.1, "sepalWidth": 3, "petalLength": 5.9, "species": "virginica"}, {"sepalLength": 6.3, "petalWidth": 1.8, "sepalWidth": 2.9, "petalLength": 5.6, "species": "virginica"}, {"sepalLength": 6.5, "petalWidth": 2.2, "sepalWidth": 3, "petalLength": 5.8, "species": "virginica"}, {"sepalLength": 7.6, "petalWidth": 2.1, "sepalWidth": 3, "petalLength": 6.6, "species": "virginica"}, {"sepalLength": 4.9, "petalWidth": 1.7, "sepalWidth": 2.5, "petalLength": 4.5, "species": "virginica"}, {"sepalLength": 7.3, "petalWidth": 1.8, "sepalWidth": 2.9, "petalLength": 6.3, "species": "virginica"}, {"sepalLength": 6.7, "petalWidth": 1.8, "sepalWidth": 2.5, "petalLength": 5.8, "species": "virginica"}, {"sepalLength": 7.2, "petalWidth": 2.5, "sepalWidth": 3.6, "petalLength": 6.1, "species": "virginica"}, {"sepalLength": 6.5, "petalWidth": 2, "sepalWidth": 3.2, "petalLength": 5.1, "species": "virginica"}, {"sepalLength": 6.4, "petalWidth": 1.9, "sepalWidth": 2.7, "petalLength": 5.3, "species": "virginica"}, {"sepalLength": 6.8, "petalWidth": 2.1, "sepalWidth": 3, "petalLength": 5.5, "species": "virginica"}, {"sepalLength": 5.7, "petalWidth": 2, "sepalWidth": 2.5, "petalLength": 5, "species": "virginica"}, {"sepalLength": 5.8, "petalWidth": 2.4, "sepalWidth": 2.8, "petalLength": 5.1, "species": "virginica"}, {"sepalLength": 6.4, "petalWidth": 2.3, "sepalWidth": 3.2, "petalLength": 5.3, "species": "virginica"}, {"sepalLength": 6.5, "petalWidth": 1.8, "sepalWidth": 3, "petalLength": 5.5, "species": "virginica"}, {"sepalLength": 7.7, "petalWidth": 2.2, "sepalWidth": 3.8, "petalLength": 6.7, "species": "virginica"}, {"sepalLength": 7.7, "petalWidth": 2.3, "sepalWidth": 2.6, "petalLength": 6.9, "species": "virginica"}, {"sepalLength": 6, "petalWidth": 1.5, "sepalWidth": 2.2, "petalLength": 5, "species": "virginica"}, {"sepalLength": 6.9, "petalWidth": 2.3, "sepalWidth": 3.2, "petalLength": 5.7, "species": "virginica"}, {"sepalLength": 5.6, "petalWidth": 2, "sepalWidth": 2.8, "petalLength": 4.9, "species": "virginica"}, {"sepalLength": 7.7, "petalWidth": 2, "sepalWidth": 2.8, "petalLength": 6.7, "species": "virginica"}, {"sepalLength": 6.3, "petalWidth": 1.8, "sepalWidth": 2.7, "petalLength": 4.9, "species": "virginica"}, {"sepalLength": 6.7, "petalWidth": 2.1, "sepalWidth": 3.3, "petalLength": 5.7, "species": "virginica"}, {"sepalLength": 7.2, "petalWidth": 1.8, "sepalWidth": 3.2, "petalLength": 6, "species": "virginica"}, {"sepalLength": 6.2, "petalWidth": 1.8, "sepalWidth": 2.8, "petalLength": 4.8, "species": "virginica"}, {"sepalLength": 6.1, "petalWidth": 1.8, "sepalWidth": 3, "petalLength": 4.9, "species": "virginica"}, {"sepalLength": 6.4, "petalWidth": 2.1, "sepalWidth": 2.8, "petalLength": 5.6, "species": "virginica"}, {"sepalLength": 7.2, "petalWidth": 1.6, "sepalWidth": 3, "petalLength": 5.8, "species": "virginica"}, {"sepalLength": 7.4, "petalWidth": 1.9, "sepalWidth": 2.8, "petalLength": 6.1, "species": "virginica"}, {"sepalLength": 7.9, "petalWidth": 2, "sepalWidth": 3.8, "petalLength": 6.4, "species": "virginica"}, {"sepalLength": 6.4, "petalWidth": 2.2, "sepalWidth": 2.8, "petalLength": 5.6, "species": "virginica"}, {"sepalLength": 6.3, "petalWidth": 1.5, "sepalWidth": 2.8, "petalLength": 5.1, "species": "virginica"}, {"sepalLength": 6.1, "petalWidth": 1.4, "sepalWidth": 2.6, "petalLength": 5.6, "species": "virginica"}, {"sepalLength": 7.7, "petalWidth": 2.3, "sepalWidth": 3, "petalLength": 6.1, "species": "virginica"}, {"sepalLength": 6.3, "petalWidth": 2.4, "sepalWidth": 3.4, "petalLength": 5.6, "species": "virginica"}, {"sepalLength": 6.4, "petalWidth": 1.8, "sepalWidth": 3.1, "petalLength": 5.5, "species": "virginica"}, {"sepalLength": 6, "petalWidth": 1.8, "sepalWidth": 3, "petalLength": 4.8, "species": "virginica"}, {"sepalLength": 6.9, "petalWidth": 2.1, "sepalWidth": 3.1, "petalLength": 5.4, "species": "virginica"}, {"sepalLength": 6.7, "petalWidth": 2.4, "sepalWidth": 3.1, "petalLength": 5.6, "species": "virginica"}, {"sepalLength": 6.9, "petalWidth": 2.3, "sepalWidth": 3.1, "petalLength": 5.1, "species": "virginica"}, {"sepalLength": 5.8, "petalWidth": 1.9, "sepalWidth": 2.7, "petalLength": 5.1, "species": "virginica"}, {"sepalLength": 6.8, "petalWidth": 2.3, "sepalWidth": 3.2, "petalLength": 5.9, "species": "virginica"}, {"sepalLength": 6.7, "petalWidth": 2.5, "sepalWidth": 3.3, "petalLength": 5.7, "species": "virginica"}, {"sepalLength": 6.7, "petalWidth": 2.3, "sepalWidth": 3, "petalLength": 5.2, "species": "virginica"}, {"sepalLength": 6.3, "petalWidth": 1.9, "sepalWidth": 2.5, "petalLength": 5, "species": "virginica"}, {"sepalLength": 6.5, "petalWidth": 2, "sepalWidth": 3, "petalLength": 5.2, "species": "virginica"}, {"sepalLength": 6.2, "petalWidth": 2.3, "sepalWidth": 3.4, "petalLength": 5.4, "species": "virginica"}, {"sepalLength": 5.9, "petalWidth": 1.8, "sepalWidth": 3, "petalLength": 5.1, "species": "virginica"}];
+    var width=640;
+    var height=600;
+    var widthMargin = 40;
+    var heightMargin = 20;
     var featureNamesToRanges={"sepalLength": [0, 7.9], "petalWidth": [0, 2.5], "sepalWidth": [0, 4.4], "petalLength": [0, 6.9]};
 
-
+    var featureNames = Object.keys(featureNamesToRanges);
+    console.info(featureNames)
+    
 	var svg = d3.select('#iris_biplot')
 		      .append('svg').attr('width', width).attr('height', height);
 
-	var scales = {
-		x : d3.scale.linear()
-		  .domain(featureNamesToRanges.sepalLength)
-		  .range([margin, width - 2 * margin]),
-		y : d3.scale.linear()
-		  	.domain(featureNamesToRanges.petalWidth)
-			.range([height - 2 * margin, margin])
-	};
-
 	svg.selectAll('.point').data(data).enter()
 		.append('svg:circle')
-		.attr('cx', function(d) { return scales.x(d.sepalLength) })
-		.attr('cy', function(d) { return scales.y(d.petalWidth) })
 		.attr('r', 4)
         .style("fill", function(d) { return speciesToColor[d.species] })
         .style("fill-opacity", .4)
 		.append("svg:title")
-		.text(function(d) {return "x = " + d.sepalLength + ", y = " + d.petalWidth + ", " + d.species });
+		.text(function(d) {return d.species });
 
-    // http://chimera.labs.oreilly.com/books/1230000000345/ch08.html
-    var xAxis = d3.svg.axis()
-                  .scale(scales.x)
-                  .orient("bottom")
-                  .ticks(5);
-    svg.append("g")
-       .attr("class", "axis")
-       .attr("transform", "translate(0," + (height - 2 * margin) + ")")
-       .call(xAxis);
+    
+    setDimensions(svg.selectAll('circle'), featureNames[0], featureNames[1])
+    
+    function setDimensions(svgCircles, featureForX, featureForY) { 
 
-    var xAxis = d3.svg.axis()
-                  .scale(scales.y)
-                  .orient("left")
-                  .ticks(5);
-    svg.append("g")
-       .attr("class", "axis")
-       .attr("transform", "translate(" + margin + ",0)")
-       .call(xAxis);
-       
+	    var scales = {
+		    x : d3.scale.linear()
+		      .domain(featureNamesToRanges[featureForX])
+		      .range([widthMargin, width - 2 * widthMargin]),
+		    y : d3.scale.linear()
+		      	.domain(featureNamesToRanges[featureForY])
+			    .range([height - 2 * heightMargin, heightMargin])
+	    }
+
+        // http://chimera.labs.oreilly.com/books/1230000000345/ch08.html
+        var xAxis = d3.svg.axis()
+                      .scale(scales.x)
+                      .orient("bottom")
+                      .ticks(5);
+        
+        // Only appending axis the first time
+        var axisClass = svg.select(".xaxis")
+        if (axisClass.empty()) {
+            console.log("xaxisClass is empty")
+            axisClass = svg.append("g")
+               .attr("class", "axis xaxis")
+               .attr("transform", "translate(0," + (height - 2 * heightMargin) + ")")
+
+            // http://stackoverflow.com/questions/11189284/d3-axis-labeling
+            svg.append("text")
+                .attr("class", "axis xLabel")
+                .attr("text-anchor", "middle")
+                .attr("x", width / 2)
+                .attr("y", height - heightMargin / 2)
+        }
+        axisClass.call(xAxis);
+        svg.select(".xLabel").text(featureForX)
+        
+        var yAxis = d3.svg.axis()
+                      .scale(scales.y)
+                      .orient("left")
+                      .ticks(5);
+
+        var axisClass = svg.select(".yaxis")
+        if (axisClass.empty()) {
+            console.log("yaxisClass is empty")
+            axisClass = svg.append("g")
+                .attr("class", "axis yaxis")
+                .attr("transform", "translate(" + widthMargin + ",0)")
+
+            svg.append("text")
+                .attr("class", "axis yLabel")
+                .attr("text-anchor", "middle")
+                .attr("x", - height / 2)
+                .attr("y", 0)
+                .attr("dy", ".75em")
+                .attr("transform", "rotate(-90)")
+        }
+        axisClass.call(yAxis);            
+        svg.select(".yLabel").text(featureForY)
+
+        return svgCircles
+	       .attr('cx', function(d) { return scales.x(d[featureForX]) })
+	       .attr('cy', function(d) { return scales.y(d[featureForY]) })
+    }
+        
+    svg.select(".xLabel").on("click", function() { switchDimension("X")})
+    svg.select(".yLabel").on("click", function() { switchDimension("Y")})
+    
+    function switchDimension(dims) {
+        console.log("switchDimension")
+
+        var indexOfFeatureForX = featureNames.indexOf( svg.select(".xLabel").text() )
+        var indexOfFeatureForY = featureNames.indexOf( svg.select(".yLabel").text() )
+        
+        if (dims.indexOf("X") != -1) {
+            indexOfFeatureForX = (indexOfFeatureForX + 1) % featureNames.length
+        }
+        if (dims.indexOf("Y") != -1) {
+            indexOfFeatureForY = (indexOfFeatureForY + 1) % featureNames.length
+        }
+            
+        setDimensions(svg.selectAll('circle').transition(), featureNames[indexOfFeatureForX], featureNames[indexOfFeatureForY])
+            .duration(2000)
+    }
     </script>
   </body>
 </html>
