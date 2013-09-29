@@ -15,7 +15,7 @@ class HtmlScript(object):
         self.vars.update(**kw)
     
     def get_js_vars_lines(self):
-        return ["var {0}={1};".format(k, json.dumps(v)).replace("u'", "'") 
+        return ["var {0}={1};".format(k, json.dumps(pretty_floats(v))).replace("u'", "'") 
                 for k,v in self.vars.iteritems()]
 
     def add_js(self, jsStr):
@@ -43,3 +43,19 @@ class HtmlScript(object):
 
     def display(self):
         display(HTML(self.get_html_only()), Javascript(self.get_js(), lib=self.js_lib))
+
+class PrettyFloat(float):
+    """ As proposed here to handle arbitrary number of decimals.
+    http://stackoverflow.com/questions/1447287/format-floats-with-standard-json-module
+    """
+    def __repr__(self):
+        return '%.15g' % self
+        
+def pretty_floats(obj):
+    if isinstance(obj, float):
+        return PrettyFloat(obj)
+    elif isinstance(obj, dict):
+        return dict((k, pretty_floats(v)) for k, v in obj.items())
+    elif isinstance(obj, (list, tuple)):
+        return map(pretty_floats, obj)             
+    return obj
